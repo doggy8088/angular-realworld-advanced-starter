@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
 
 import { HttpClientModule } from '@angular/common/http';
-import { PostsModule } from './posts/posts.module';
 
 
 @NgModule({
@@ -14,7 +13,6 @@ import { PostsModule } from './posts/posts.module';
     BrowserModule,
     HttpClientModule,
     LayoutModule,
-    PostsModule,
     AppRoutingModule
   ],
   providers: [],
