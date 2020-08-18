@@ -7,9 +7,16 @@
           <fieldset class="form-group">
             <input class="form-control form-control-lg" type="text" placeholder="Post Title" formControlName="title">
           </fieldset>
+          <ul *ngIf="post.dirty && post.get('title').invalid">
+            <li *ngIf="post.get('title').errors.required">請輸入標題</li>
+          </ul>
           <fieldset class="form-group">
             <textarea class="form-control" rows="8" placeholder="Write your post (in markdown)" formControlName="body"></textarea>
           </fieldset>
+          <ul *ngIf="post.dirty && post.get('body').invalid">
+            <li *ngIf="post.get('body').errors.required">請輸入內文</li>
+            <li *ngIf="post.get('body').errors.minlength">內文至少 {{post.get('body').errors.minlength.requiredLength}} 個字</li>
+          </ul>
           <fieldset class="form-group">
             <input class="form-control" type="text" placeholder="Enter tags" #tag (keyup.enter)="addTag(tag.value)">
             <div class="tag-list" formArrayName="tags">
@@ -18,7 +25,8 @@
                 <i class="ion-close-round"></i> {{ tag.value }}</span>
             </div>
           </fieldset>
-          <button type="submit" class="btn btn-lg btn-primary pull-xs-right">
+          <button type="submit" class="btn btn-lg btn-primary pull-xs-right"
+            [disabled]="post.invalid">
             Create Post
           </button>
 

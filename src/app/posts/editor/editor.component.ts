@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-editor',
@@ -13,8 +13,12 @@ export class EditorComponent implements OnInit {
 
   ngOnInit() {
     this.post = this.fb.group({
-      title: this.fb.control(''),
-      body: this.fb.control(''),
+      title: this.fb.control('', {
+        validators: [Validators.required]
+      }),
+      body: this.fb.control('', {
+        validators: [Validators.required, Validators.minLength(10)]
+      }),
       tags: this.fb.array([
         this.fb.control('Angular'),
         this.fb.control('HTML'),
