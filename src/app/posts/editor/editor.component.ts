@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 
@@ -9,7 +10,7 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 export class EditorComponent implements OnInit {
   post: FormGroup;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private http: HttpClient) { }
 
   ngOnInit() {
     this.post = this.fb.group({
@@ -39,7 +40,13 @@ export class EditorComponent implements OnInit {
 
   createPost() {
     if (this.post.valid) {
-      alert('表單送出');
+      this.http.post('http://localhost:3000/api/articles', {
+        article: this.post.value
+      }).subscribe(() => {
+        alert('已成功建立文章!');
+      }, (error) => {
+        alert(JSON.stringify(error));
+      });
     }
   }
 
